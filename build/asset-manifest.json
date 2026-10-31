@@ -1,0 +1,28 @@
+{
+  "asset_root": "assets",
+  "packaging": {
+    "build_exe.bat": "Copies the complete assets directory to a temporary staging folder and passes it to PyInstaller.",
+    "runtime_path": "Assets are resolved relative to the application bundle through RESOURCE_DIR in config.py."
+  },
+  "native_app": [
+    "jarvis.ico",
+    "icons/jarvis-logo.png",
+    "ui_gui_images/reference_ui.png"
+  ],
+  "browser_theme": [
+    "themes/jarvis-ui.css",
+    "fonts/font-stack.css",
+    "icons/jarvis-emblem.svg",
+    "icons/jarvis-wordmark.svg",
+    "animations/jarvis-orbit.svg",
+    "sounds/ready.wav",
+    "sounds/send.wav",
+    "sounds/success.wav",
+    "sounds/error.wav",
+    "ui_gui_images/background/jarvis-grid.svg",
+    "ui_gui_images/avatars/jarvis-assistant.svg",
+    "ui_gui_images/panels/cyan-panel.svg",
+    "ui_gui_images/illustrations/assistant-orbit.svg"
+  ],
+  "generated_build_outputs": "dist/release-<build-id>"
+}

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#061329">
+  <title>JARVIS AI — Personal Assistant</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <script src="dashboard.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar panel">
+      <a class="brand" href="#mainContent" aria-label="JARVIS home">
+        <span class="brand-mark"><span>J</span></span>
+        <span class="brand-copy"><strong>JARVIS AI</strong><small>YOUR PERSONAL ASSISTANT</small></span>
+      </a>
+      <div class="top-motto">THINK <i>+</i> ASSIST <i>+</i> AUTOMATE</div>
+      <div class="top-tools">
+        <span class="ready-pill"><i></i> Local UI</span>
+        <time id="clock">--:--:--</time>
+        <button class="window-control" aria-label="Minimize">−</button>
+        <button class="window-control" aria-label="Fullscreen" id="fullscreen">□</button>
+      </div>
+    </header>
+
+    <aside class="sidebar panel">
+      <div class="section-label">WORKSPACE</div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-item active" data-view="Home"><span>⌂</span>Home</button>
+        <button class="nav-item" data-view="AI Chat"><span>▤</span>AI Chat</button>
+        <button class="nav-item" data-view="Voice Control"><span>♬</span>Voice Control</button>
+        <button class="nav-item" data-view="Applications"><span>▦</span>Applications</button>
+        <button class="nav-item" data-view="Web & Search"><span>◎</span>Web &amp; Search</button>
+        <button class="nav-item" data-view="Notes & Memory"><span>▧</span>Notes &amp; Memory</button>
+        <button class="nav-item" data-view="My AI Model"><span>◉</span>My AI Model</button>
+        <button class="nav-item" data-view="System Monitor"><span>⌁</span>System Monitor</button>
+        <button class="nav-item" data-view="Settings"><span>⚙</span>Settings</button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-quote"><span class="quote-mark">“</span><p>Intelligence begins with curiosity.</p><small>— JARVIS CORE</small></div>
+      <div class="sidebar-version"><span class="pulse-dot"></span> LOCAL PREVIEW <span>v1.0</span></div>
+    </aside>
+
+    <aside class="system-panel panel">
+      <div class="panel-heading"><span class="heading-icon">▥</span><span>SYSTEM OVERVIEW</span><span class="live-tag">LIVE</span></div>
+      <div class="system-os"><span class="windows-mark">▦</span><span><strong>Windows Desktop</strong><small>Local assistant workspace</small></span></div>
+      <div class="metric-row"><span class="metric-icon">◫</span><span class="metric-copy"><small>CPU USAGE</small><strong>— <em>waiting for app bridge</em></strong></span><span class="meter"><i style="width:28%"></i></span></div>
+      <div class="metric-row"><span class="metric-icon">▤</span><span class="metric-copy"><small>MEMORY</small><strong>— <em>not connected</em></strong></span><span class="meter"><i style="width:48%"></i></span></div>
+      <div class="metric-row"><span class="metric-icon">▰</span><span class="metric-copy"><small>STORAGE</small><strong>Local device</strong></span><span class="meter"><i style="width:36%"></i></span></div>
+      <div class="metric-row"><span class="metric-icon battery">▰</span><span class="metric-copy"><small>POWER</small><strong>System metric unavailable</strong></span></div>
+      <div class="system-divider"></div>
+      <div class="panel-heading compact"><span class="heading-icon">◈</span><span>MODEL SNAPSHOT</span></div>
+      <div class="mini-model"><span>J</span><div><strong>JARVIS Byte-Bigram</strong><small>Experimental · local-only</small></div></div>
+      <div class="model-foot"><span>TRAINING</span><b>Open desktop app</b></div>
+      <div class="model-foot"><span>INFERENCE</span><b class="muted-state">Not connected</b></div>
+      <div class="local-note"><span>⬡</span><div><strong>Privacy by design</strong><small>Local preview; web search sends only when submitted.</small></div></div>
+    </aside>
+
+    <main class="main-column" id="mainContent">
+      <section class="hero panel">
+        <div class="hero-grid"></div>
+        <div class="hero-label"><span class="tiny-pulse"></span> JARVIS CORE <span class="hero-label-line"></span> LOCAL PREVIEW</div>
+        <canvas id="coreCanvas" aria-label="Animated blue JARVIS holographic core"></canvas>
+        <div class="hero-caption"><strong>YOUR LOCAL AI COMPANION</strong><span>Curiosity · Clarity · Control</span></div>
+        <div class="hero-coordinate coordinate-left">CORE / 01<br>LOCAL NODE</div>
+        <div class="hero-coordinate coordinate-right">SYSTEM<br>STANDBY</div>
+        <div class="hero-bottom-line"></div>
+      </section>
+      <section class="home-welcome panel">
+        <div class="welcome-orb">J</div>
+        <div class="welcome-copy"><span class="tool-eyebrow">WELCOME TO YOUR WORKSPACE</span><h1>Ready when you are.</h1><p>Open AI Chat to continue a conversation. The chat stays on its own page, with its message history scrolling independently.</p></div>
+        <button class="primary-button" data-route="AI Chat">Open AI Chat <span>→</span></button>
+      </section>
+    </main>
+
+    <template id="chatTemplate">
+      <section class="chat-panel panel">
+        <div class="chat-heading"><div><span class="heading-icon">◉</span><strong>ASSISTANT CONSOLE</strong><small>Local model bridge is not connected</small></div><span class="offline-badge"><i></i> PREVIEW MODE</span></div>
+        <div class="chat-history" id="chatHistory" aria-live="polite">
+          <article class="message user-message"><div class="avatar user-avatar">U</div><div class="bubble-wrap"><div class="message-meta">YOU <time>10:44</time></div><div class="bubble">Hello, JARVIS. Show me the new dashboard.</div></div></article>
+          <article class="message assistant-message"><div class="avatar jarvis-avatar">J</div><div class="bubble-wrap"><div class="message-meta">JARVIS UI <time>10:44</time></div><div class="bubble">The dark-blue dashboard preview is ready. Connect the Python app bridge to use your local model and desktop actions here.</div></div></article>
+        </div>
+        <div class="suggestion-row">
+          <button class="suggestion" data-prompt="Open the My AI Model page">Open My AI Model</button>
+          <button class="suggestion" data-prompt="Show local system status">System Status</button>
+          <button class="suggestion" data-prompt="Create a note">Create Note</button>
+          <button class="suggestion" data-prompt="Explain local model training">Model Training</button>
+        </div>
+        <form class="composer" id="chatForm">
+          <button type="button" class="round-mic" id="micButton" aria-label="Voice input">♩</button>
+          <input id="chatInput" type="text" placeholder="Ask JARVIS something…" autocomplete="off" aria-label="Message JARVIS">
+          <button class="send-button" type="submit" aria-label="Send message">➤</button>
+        </form>
+        <div class="composer-foot"><span><i class="lock-icon">▣</i> PREVIEW ONLY · NO CLOUD AI</span><span>Enter to send <kbd>↵</kbd></span></div>
+      </section>
+    </template>
+
+    <aside class="right-column">
+      <section class="quick-panel panel">
+        <div class="panel-heading"><span class="heading-icon">ϟ</span><span>QUICK ACTIONS</span><button class="more-button" data-toast="Desktop actions are not connected in this HTML preview.">•••</button></div>
+        <div class="action-grid">
+          <button class="action-card" data-action="Notepad"><span>▤</span><small>Notepad</small></button>
+          <button class="action-card" data-action="Calculator"><span>▦</span><small>Calculator</small></button>
+          <button class="action-card" data-action="Paint"><span>◉</span><small>Paint</small></button>
+          <button class="action-card" data-action="Browser"><span>◎</span><small>Browser</small></button>
+          <button class="action-card" data-action="Web Search"><span>⌕</span><small>Web Search</small></button>
+          <button class="action-card" data-action="Create Note"><span>▧</span><small>Create Note</small></button>
+          <button class="action-card" data-action="Open Folder"><span>▱</span><small>Open Folder</small></button>
+          <button class="action-card" data-action="System Info"><span>ⓘ</span><small>System Info</small></button>
+          <button class="action-card" data-action="More Tools"><span>⠿</span><small>More Tools</small></button>
+        </div>
+      </section>
+
+      <section class="status-panel panel">
+        <div class="panel-heading"><span class="heading-icon">◈</span><span>AI STATUS</span><span class="offline-badge small"><i></i>LOCAL</span></div>
+        <div class="status-content"><div class="status-lines"><p><span>Engine</span><b>Python app</b></p><p><span>Model</span><b>Byte-Bigram</b></p><p><span>Connection</span><b class="muted-state">Not linked</b></p></div><div class="signal-box" id="signalBox" aria-label="Decorative signal animation"></div></div>
+        <div class="status-caption">No hosted AI or external API configured</div>
+      </section>
+
+      <section class="voice-panel panel">
+        <div class="panel-heading"><span class="heading-icon">♬</span><span>VOICE &amp; SPEECH</span></div>
+        <div class="voice-row"><span>♩</span><span>Microphone</span><b class="muted-state">Not connected</b></div>
+        <div class="voice-row"><span>◖</span><span>Speech engine</span><b class="muted-state">Not connected</b></div>
+        <button class="voice-orb" id="voiceOrb" aria-label="Voice preview"><span>♩</span></button>
+        <div class="voice-caption">Offline speech input is not implemented</div>
+      </section>
+
+      <section class="reminders-panel panel">
+        <div class="panel-heading"><span class="heading-icon">◷</span><span>UPCOMING</span><button class="view-all" data-route="Reminders">View all <span>→</span></button></div>
+        <div class="empty-reminders"><span class="empty-icon">◷</span><div><strong>No preview reminders</strong><small>Open the desktop app for saved reminders.</small></div></div>
+        <div class="reminder-footer"><span class="tiny-pulse"></span> LOCAL DATA STAYS ON THIS DEVICE</div>
+      </section>
+    </aside>
+
+    <footer class="footer panel"><div><span class="pulse-dot"></span> JARVIS AI <small>LOCAL UI PREVIEW</small></div><span class="footer-wave" id="footerWave" aria-hidden="true"></span><div class="footer-tagline">A SMARTER TOMORROW, BUILT LOCALLY</div></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

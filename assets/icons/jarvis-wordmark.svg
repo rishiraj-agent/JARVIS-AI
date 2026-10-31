@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="112" viewBox="0 0 520 112">
+  <defs>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#f2fdff"/>
+      <stop offset=".55" stop-color="#94dfff"/>
+      <stop offset="1" stop-color="#36d9ef"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(6 7) scale(.76)">
+    <circle cx="64" cy="64" r="60" fill="#06101b" stroke="#36d9ef" stroke-width="3"/>
+    <circle cx="64" cy="64" r="49" fill="#0b1c2b" stroke="#36d9ef" stroke-opacity=".55" stroke-width="2"/>
+    <path d="M54 33h27v49a16 16 0 0 1-16 16H48V83h17a2 2 0 0 0 2-2V47H54Z" fill="url(#word)"/>
+  </g>
+  <text x="112" y="58" fill="url(#word)" font-family="Segoe UI, sans-serif" font-size="38" font-weight="700" letter-spacing="3">JARVIS AI</text>
+  <text x="115" y="87" fill="#36d9ef" font-family="Segoe UI, sans-serif" font-size="12" letter-spacing="4">THINK  •  ASSIST  •  AUTOMATE</text>
+</svg>
