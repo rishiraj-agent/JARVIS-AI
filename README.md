@@ -315,9 +315,9 @@ If the command reports an error, resolve that error before expecting an executab
 
 The following are research and development goals, not claims that these features are already complete:
 
-- [x] Initial local byte-level bigram model
-- [x] Local training and checkpoint pipeline
-- [x] Basic desktop-assistant layer and local memory
+- [ ] Initial local byte-level bigram model
+- [ ] Local training and checkpoint pipeline
+- [ ] Basic desktop-assistant layer and local memory
 - [ ] Improve tokenization beyond UTF-8 bytes
 - [ ] Experiment with a compact neural language-model architecture
 - [ ] Improve dataset handling, evaluation, and reproducibility
