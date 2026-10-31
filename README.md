@@ -1,60 +1,362 @@
-# JARVIS AI — Local Model Research Build
+# JARVIS-AI
 
-JARVIS is a Windows desktop assistant with a small experimental neural language model trained locally from random initialization. The application does not connect to OpenAI, OpenRouter, other hosted inference APIs, Ollama, or pretrained model weights. No API key is needed.
+### A Local-First AI Assistant & Original Language-Model Research Project
 
-## Current model (honest status)
+**Build it. Train it. Run it locally.**
 
-The first model is a byte-level bigram neural network: the previous byte is embedded, then mapped to a 260-token softmax output. It has 8,580 trainable parameters and one byte of context. It is an educational training pipeline milestone, **not a Transformer and not a capable general-purpose LLM**. It will usually produce poor text until trained, and even the tiny bundled synthetic demo corpus teaches only pipeline behavior—not useful general knowledge. All weights begin from a local random seed. Training, loss, checkpoint metadata, and inference are handled locally using Python's standard library.
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-0078D6?style=for-the-badge&logo=windows)](https://www.microsoft.com/windows)
+[![Language](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+[![AI](https://img.shields.io/badge/AI-Local%20%7C%20Experimental-7C3AED?style=for-the-badge)](#current-language-model)
 
-The checkpoint is stored at `%LOCALAPPDATA%\JARVIS\jarvis_byte_bigram.json`. It uses validated JSON data rather than executable serialization. Model checkpoints are separate from SQLite conversation memory and from retrieved knowledge documents. Saving a document does not train the neural model.
+</div>
 
-## Run
+---
 
-Use the existing Python 3.11 setup on Windows:
+## About
+
+**JARVIS-AI** is a Windows desktop assistant and an experimental project for building an original language model locally.
+
+The project is designed around a simple principle: understand the foundations of AI by implementing and training a small neural language model from random initialization—not by downloading pretrained model weights.
+
+JARVIS currently combines an experimental byte-level neural model with a separate desktop-assistant layer, local memory, and utility features.
+
+> **Project status:** Early research / development build. The current neural model is a small educational milestone, not a production-grade or general-purpose LLM.
+
+## Project goals
+
+- Build and train an original neural language model locally.
+- Start with a small model and improve the architecture through measurable experiments.
+- Keep model training, inference, assistant tools, and conversation memory as separate components.
+- Run core functionality on the user's Windows computer.
+- Avoid dependence on hosted AI inference services and pretrained model weights.
+
+## Current language model
+
+The first implemented model is a **byte-level bigram neural network**.
+
+| Property | Current implementation |
+|---|---|
+| Architecture | Byte-level bigram neural network |
+| Trainable parameters | 8,580 |
+| Context | Previous byte (one-byte context) |
+| Output vocabulary | 260-token softmax |
+| Initialization | Local random initialization |
+| Training and inference | Local Python implementation |
+| Checkpoint format | Validated JSON |
+| Checkpoint location | `%LOCALAPPDATA%\JARVIS\jarvis_byte_bigram.json` |
+
+### What this means
+
+The model learns a next-byte prediction task from the text supplied for training. It is useful for testing the training pipeline, loss tracking, checkpoint saving, and inference.
+
+It is **not yet a Transformer**, does not have broad language understanding, and should not be described as a ChatGPT-level model. Generated text may be low quality, especially with a small training dataset.
+
+### Training data
+
+From the desktop application:
+
+1. Open **My AI Model**.
+2. Select a UTF-8 text, Markdown, or CSV file.
+3. Choose the training epochs and learning rate.
+4. Start training and review the recorded training information.
+
+Use only text you created, have permission to use, or that is appropriately licensed. The current reader limits each source to 512 KiB and bounds the number of examples processed per epoch.
+
+The **Train synthetic demo** option uses synthetic pipeline data. It demonstrates the training workflow; it is not a source of general knowledge.
+
+**Important:** Importing a document into the assistant's knowledge/memory system does not train the neural model. Neural checkpoints, SQLite conversation memory, and retrieved documents are separate.
+
+## Current assistant features
+
+The assistant layer is separate from the neural language model. The repository currently includes local functionality such as:
+
+- Text-based interaction with the desktop assistant.
+- Allow-listed local commands and application shortcuts.
+- Notes and reminders.
+- Basic system information.
+- Browser search that opens a search query in the browser.
+- SQLite-backed conversation memory and keyword-based knowledge retrieval.
+- Optional Windows text-to-speech through `pyttsx3`, using installed Windows voices.
+
+The assistant does not execute arbitrary shell commands generated by the language model.
+
+### Voice status
+
+Offline speech-to-text is **not currently implemented**. The microphone action reports this limitation and does not upload microphone audio. Text interaction and local tools remain available without speech recognition.
+
+## Privacy and local operation
+
+- No OpenAI, OpenRouter, or other hosted inference API is used by the current model.
+- No API key is required for the local model.
+- No Ollama dependency is used.
+- No pretrained model weights are downloaded or loaded.
+- Model training and inference run locally.
+- Model checkpoints are stored separately from SQLite conversation memory.
+- Browser search opens a query in the browser; it does not fetch or summarize search results inside the app.
+
+Optional operating-system and voice-presentation dependencies may be used as described below.
+
+## Repository structure
+
+The current public repository contains the following top-level structure:
+
+```text
+JARVIS-AI/
+│
+├── .vscode/                 # Editor / workspace configuration
+├── ai_core/                 # AI and model-related source modules
+├── assets/                  # Application assets
+├── build/                   # Build-related files
+├── installer/               # Installer-related files
+├── jarvis/                  # Assistant application package
+├── tests/                   # Automated tests
+│
+├── .env.example              # Example environment configuration
+├── .gitignore                # Git ignore rules
+├── LICENSE                   # MIT License
+├── README.md                 # Project documentation
+│
+├── main.py                   # Application entry point
+├── config.py                 # Application configuration
+├── signal.cpp                # C++ source file
+│
+├── dashboard.html            # Dashboard interface
+├── dashboard.css             # Dashboard styles
+├── dashboard.js              # Dashboard interactions
+│
+├── requirements.txt          # Python dependencies
+├── setup.bat                 # Windows environment setup
+├── setup.ps1                 # PowerShell setup script
+├── setup_dev.bat             # Development checks
+├── start_jarvis.bat          # Application launcher
+├── run.bat                   # Additional launcher script
+│
+├── build_exe.bat             # Build portable / one-file packages
+├── build_exe_onedir.bat      # Onedir build script
+└── build_exe_onefile.bat     # One-file build script
+```
+
+Some generated or local folders—such as `.venv`, `dist`, logs, databases, and model checkpoints—are created on the user's computer and are not necessarily committed to GitHub.
+
+## Requirements
+
+- Windows 10 or Windows 11 (64-bit recommended)
+- Python **3.11**
+- Python Launcher (`py`)
+- Internet connection for the initial dependency installation
+- Git (optional, for cloning and contributing)
+
+The current model/training pipeline uses the Python standard library. `psutil` and `pyttsx3` are optional application dependencies; PyInstaller is used for packaging. See [`requirements.txt`](requirements.txt) for the repository's dependency list.
+
+## Installation
+
+### 1. Download the project
+
+Clone the repository:
+
+```bat
+git clone https://github.com/rishiraj-agent/JARVIS-AI.git
+cd JARVIS-AI
+```
+
+Or download the ZIP from GitHub and extract it.
+
+### 2. Install Python 3.11
+
+Install 64-bit Python 3.11 from:
+
+https://www.python.org/downloads/windows/
+
+During installation, enable the Python Launcher and add Python to PATH.
+
+Check the installation:
+
+```bat
+py -3.11 --version
+```
+
+### 3. Set up the environment
+
+Open Command Prompt in the project folder and run:
 
 ```bat
 setup.bat
-run.bat
 ```
 
-Or run with a compatible Python installation:
+This script creates a local `.venv` environment, updates pip, and installs the dependencies from `requirements.txt`.
+
+### 4. Start JARVIS
+
+After setup completes, run:
 
 ```bat
-python main.py
+start_jarvis.bat
 ```
 
-Open **My AI Model** to inspect its architecture, pick a UTF-8 TXT/Markdown/CSV dataset, choose epochs and learning rate, and train. Import only text you wrote, have permission to use, or that is appropriately licensed. The training reader caps each source at 512 KiB and bounds per-epoch examples to reduce memory use. “Train synthetic demo” is explicitly labeled as synthetic pipeline data. The app records source name/hash, training step, losses, and checkpoint state. Model generation is disabled until a successful training step exists.
+Do not run `setup_dev.bat` to start the app; that script is for development checks.
 
-## Local assistant features
+## Run tests
 
-The assistant layer is separate from the language model. Allow-listed local commands, notes, reminders, system information, app shortcuts, and browser search are not model-generated shell commands. Local memory and knowledge retrieval use SQLite and keyword search; imported knowledge is not neural training. Conversation history is optional in Settings.
-
-Speech recognition is currently **not implemented offline**. The microphone action reports this clearly and never uploads microphone audio. Optional Windows text-to-speech through `pyttsx3` may use installed Windows voices. Text chat and local tools work without speech support.
-
-## Dependencies and packaging
-
-The model/training pipeline uses only the Python standard library. `psutil` and `pyttsx3` are optional system/voice presentation dependencies; `PyInstaller` is for packaging. There is no API client, API credential store, online speech-recognition package, pretrained model dependency, or model download.
-
-Run the existing checks:
+Use the project's virtual environment:
 
 ```bat
-python -m unittest discover -s tests -v
+.venv\Scripts\python.exe -m compileall -q main.py config.py jarvis
+.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-Build a Windows package with the existing script after setting up its Python 3.11 environment:
+Or run the development-check script:
+
+```bat
+setup_dev.bat
+```
+
+## Build the Windows executable
+
+The build script uses Python 3.11, validates the source and tests, then packages the app with PyInstaller.
+
+### Portable folder build (recommended)
 
 ```bat
 build_exe.bat onedir
 ```
 
-The output is written under `dist`. User databases, logs, and model checkpoints remain under `%LOCALAPPDATA%\JARVIS`, not bundled into the executable.
+The executable is created under a generated folder similar to:
 
-## Limitations
+```text
+dist/
+└── release-<build-id>/
+    └── JARVIS-AI/
+        ├── JARVIS-AI.exe
+        └── supporting files and libraries
+```
 
-- This is a byte-bigram proof of training mechanics, not the requested compact Transformer yet.
-- The custom tokenizer is UTF-8 byte based, not a learned subword vocabulary.
-- The included demo corpus is tiny and synthetic; meaningful learning requires suitable user-approved data.
-- Offline speech-to-text, a Transformer architecture, broad assistant intent learning, and C++ acceleration remain future research phases.
-- Web search opens a browser query; it does not fetch or summarize search results.
+The script writes the selected build folder name to:
 
-#
+```text
+dist/current_build.txt
+```
+
+Keep the complete `JARVIS-AI` folder together when distributing the onedir build. Do not copy only the `.exe`.
+
+### Single-file build
+
+```bat
+build_exe.bat onefile
+```
+
+The single-file executable is created under the generated `dist/release-<build-id>/` folder.
+
+### Build both formats
+
+```bat
+build_exe.bat all
+```
+
+The script's default mode is `all`.
+
+**Note:** `dist` is generated locally when the build succeeds. It is not automatically created by `git push`, and it is not automatically included in the GitHub source repository.
+
+## Data and storage locations
+
+The current model checkpoint is stored at:
+
+```text
+%LOCALAPPDATA%\JARVIS\jarvis_byte_bigram.json
+```
+
+The application keeps user data such as databases, logs, and model checkpoints under the local JARVIS application-data directory rather than bundling them into the executable.
+
+Back up this directory if you need to preserve local model training or application data. Do not commit private databases, logs, personal notes, credentials, or local checkpoints to a public repository.
+
+## Troubleshooting
+
+### `py` is not recognized
+
+Install Python 3.11 from the official Python website and enable the Python Launcher during installation. Close and reopen Command Prompt, then run:
+
+```bat
+py -3.11 --version
+```
+
+### Python 3.11 was not found
+
+The setup and build scripts specifically check for Python 3.11. Installing only another Python version may not satisfy that check.
+
+### Setup fails while installing dependencies
+
+Confirm that Python 3.11 is installed and that the computer has an internet connection. Then retry:
+
+```bat
+setup.bat
+```
+
+### The executable does not start
+
+Run the source version first to check whether the application itself starts:
+
+```bat
+.venv\Scripts\python.exe main.py
+```
+
+If the build failed, read the full error printed by `build_exe.bat`. A successful build should report the expected executable path.
+
+### `dist` is missing
+
+The `dist` folder is produced by the packaging script, not by GitHub publishing. Run:
+
+```bat
+build_exe.bat onedir
+```
+
+If the command reports an error, resolve that error before expecting an executable.
+
+## Roadmap
+
+The following are research and development goals, not claims that these features are already complete:
+
+- [x] Initial local byte-level bigram model
+- [x] Local training and checkpoint pipeline
+- [x] Basic desktop-assistant layer and local memory
+- [ ] Improve tokenization beyond UTF-8 bytes
+- [ ] Experiment with a compact neural language-model architecture
+- [ ] Improve dataset handling, evaluation, and reproducibility
+- [ ] Explore Hindi, Hinglish, and English training/evaluation
+- [ ] Add offline speech-to-text
+- [ ] Explore C++ acceleration after profiling the Python implementation
+
+## Contributing
+
+Contributions, bug reports, and practical suggestions are welcome.
+
+1. Fork the repository.
+2. Create a focused branch.
+3. Make a small, testable change.
+4. Run the test suite.
+5. Open a pull request describing the change and its test results.
+
+Please do not submit private datasets, API keys, personal databases, or copyrighted training material without permission.
+
+## License
+
+This project is distributed under the MIT License. See [`LICENSE`](LICENSE).
+
+## Disclaimer
+
+JARVIS-AI is an experimental software and machine-learning research project. The current model is a small educational implementation. Features and behavior may change as development continues.
+
+---
+
+<div align="center">
+
+**JARVIS-AI — An experiment in building AI from the ground up.**
+
+[View Repository](https://github.com/rishiraj-agent/JARVIS-AI)
+
+</div>
+'''
+
+path = Path("/mnt/data/README.md")
+path.write_text(readme, encoding="utf-8")
+print(f"Created: {path}")
+print(f"Size: {path.stat().st_size:,} bytes")
